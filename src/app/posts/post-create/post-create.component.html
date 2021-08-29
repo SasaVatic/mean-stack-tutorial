@@ -1,13 +1,14 @@
 <mat-card>
-  <form (submit)="onAddPost(postForm)" #postForm="ngForm">
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <form (submit)="onSavePost(postForm)" #postForm="ngForm" *ngIf="!isLoading">
     <mat-form-field>
       <mat-label>Post Title</mat-label>
-      <input matInput ngModel type="text" name="title" required autocomplete="off" placeholder="Post Title" #title="ngModel">
+      <input matInput [ngModel]="post?.title" type="text" name="title" required autocomplete="off" placeholder="Post Title" #title="ngModel">
       <mat-error *ngIf="title.invalid">Please enter a post title</mat-error>
     </mat-form-field>
     <mat-form-field>
       <mat-label>Post Content</mat-label>
-      <textarea matInput rows="6" ngModel name="content" required autocomplete="off" placeholder="Post Content" #content="ngModel"></textarea>
+      <textarea matInput rows="6" [ngModel]="post?.content" name="content" required autocomplete="off" placeholder="Post Content" #content="ngModel"></textarea>
       <mat-error *ngIf="content.invalid">Please enter a post content</mat-error>
     </mat-form-field>
     <button mat-raised-button color="accent" type="submit">Save Post</button>
