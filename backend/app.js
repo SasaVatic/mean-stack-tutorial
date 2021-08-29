@@ -1,6 +1,6 @@
 const express = require('express');
-const Post = require('./models/post');
 const mongoose = require('mongoose');
+const postsRoutes = require('./routes/posts')
 
 const app = express();
 
@@ -21,46 +21,13 @@ app.use((req, res, next) => {
   );
   res.setHeader(
     'Access-Control-Allow-Methods',
-    'GET, POST, PATCH, DELETE, OPTIONS'
+    'GET, POST, PATCH, PUT, DELETE, OPTIONS'
   );
   next();
 });
 
 app.use(express.json());
 
-app.post('/api/posts', (req, res, next) => {
-  const post = new Post({
-    title: req.body.title,
-    content: req.body.content
-  });
-  post.save()
-    .then((createdPost) => {
-      res.status(201).json({
-        message: 'Post added sucessfully',
-        postId: createdPost._id
-      });
-    });
-});
-
-app.get('/api/posts', (req, res, next) => {
-  Post.find()
-    .then((documents) => {
-      res.status(200).json({
-        message: 'Posts fetched succesfully',
-        posts: documents
-      });
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-});
-
-app.delete('/api/posts/:id', (req, res, next) => {
-  const id = req.params.id;
-  Post.deleteOne({ _id: id })
-    .then(() => {
-      res.status(200).json({ message: 'Post deleted' });
-    });
-});
+app.use('/api/posts', postsRoutes);
 
 module.exports = app;
