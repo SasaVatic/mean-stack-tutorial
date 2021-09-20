@@ -1,5 +1,7 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const path = require('path');
+require('dotenv').config({path: path.join(__dirname, '../.env')});
 
 const User = require('../models/user');
 
