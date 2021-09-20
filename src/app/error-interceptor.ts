@@ -20,11 +20,7 @@ export class ErrorInterceptor implements HttpInterceptor {
           data: {
             message: errorMessage
           }
-        }).afterClosed().subscribe(result => {
-          console.log('The dialog was closed');
         });
-        // console.log(error);
-        // alert(error.error.message);
         return throwError(error);
       })
     );
