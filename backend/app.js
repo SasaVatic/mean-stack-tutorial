@@ -1,12 +1,13 @@
 const path = require('path');
 const express = require('express');
 const mongoose = require('mongoose');
-const postsRoutes = require('./routes/posts')
-const userRoutes = require('./routes/user')
+const postsRoutes = require('./routes/posts');
+const userRoutes = require('./routes/user');
+require('dotenv').config({path: __dirname + '/.env'});
 
 const app = express();
 
-const dbURI = 'mongodb+srv://sasa:G8YXdX2BqKCQadWD@cluster0.xypyb.mongodb.net/node-angular?retryWrites=true&w=majority';
+const dbURI = `mongodb+srv://sasa:${process.env.MONGO_ATLAS_PW}@cluster0.xypyb.mongodb.net/node-angular?retryWrites=true&w=majority`;
 mongoose.connect(dbURI)
   .then(() => {
     console.log('Connected to database!');
