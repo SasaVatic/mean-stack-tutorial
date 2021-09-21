@@ -3,7 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { AuthData } from "../models/auth-data.model";
 import { Subject } from "rxjs";
 import { Router } from "@angular/router";
-import { environment } from "src/environments/environment";
+import { environment } from "src/environments/environment.prod";
 
 const BACKEND_URL = `${environment.apiUrl}/user`;
 
@@ -44,7 +44,7 @@ export class AuthService {
     this.httpClient.post(`${BACKEND_URL}/signup`, authData)
       .subscribe(
         (response) => {
-          this.router.navigate(['/login']);
+          this.router.navigate(['/auth/login']);
         },
         (error) => {
           this.authStatusListener.next(false);
